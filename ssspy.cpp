@@ -37,7 +37,7 @@ const size_t BR = 2;
 
 int main(int argc, char* argv[])
 {
-  if (!(argc == 0 || argc == 3))
+  if (!(argc == 1 || argc == 3))  // program name is argv[0]
   {
     std::cout << " ** command line arguments:\n";
 	std::cout << "     1: input filename (required)\n";
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 	fsu::Timer timer;
 	std::ifstream inStream;
 	std::ofstream outStream;
-	
+
 	while(1)
 	{
 	while(c != 'U' && c != 'u' && c != 'A' && c != 'a' && c != 'l' && c != 'l'
@@ -82,13 +82,13 @@ int main(int argc, char* argv[])
 	num++;
 	}
 	num = 0;
-	
+
 	if(c == 'q' || c == 'Q')
 	{
 		std::cout << "Exiting...\n";
-		return 0;		
+		return 0;
 	}
-	
+
 	if(argc == 3)
 	{
 		inStream.open(infile);
@@ -118,7 +118,7 @@ int main(int argc, char* argv[])
 				max = in.Length();
 		}
 	}
-		
+
 	switch(c)
 	{
 		case 'A':
@@ -131,16 +131,16 @@ int main(int argc, char* argv[])
 		case 'u':
 			lsd.Restart('U', 5, 26);
 //			msd.Restart('U', 5, 26);
-//			qs3.Restart('U', 5, 26)	;		
+//			qs3.Restart('U', 5, 26)	;
 			break;
 		case 'L':
-		case 'l':			
+		case 'l':
 			lsd.Restart('L', 5, 26);
 //			msd.Restart('L', 5, 26);
 //			qs3.Restart('L', 5, 26);
 			break;
 		case 'D':
-		case 'd':			
+		case 'd':
 			lsd.Restart('D', 4, 10);
 //			msd.Restart('D', 4, 10);
 //			qs3.Restart('D', 4, 10);
@@ -149,24 +149,24 @@ int main(int argc, char* argv[])
 		case 'b':
 			lsd.Restart('B', 1, 2);
 //			msd.Restart('B', 1, 2);
-//			qs3.Restart('B', 1, 2);		
+//			qs3.Restart('B', 1, 2);
 			break;
 	}
 	fsu::Vector<fsu::String> lsdList(stringList);
 	lsd.Pad(lsdList, max);
 //	fsu::Vector<fsu::String> msdList(stringList);
-//	fsu::Vector<fsu::String> qs3List(stringList);	
+//	fsu::Vector<fsu::String> qs3List(stringList);
 
 //	msd.Sort(msdList, max, msdList.Size());
 //	qs3.Sort(qs3List, max, qs3List.Size());
-	
+
 	timer.SplitReset();
-	lsd.Sort(lsdList, max, lsdList.Size());	
+	lsd.Sort(lsdList, max, lsdList.Size());
 	instant = timer.SplitTime();
 	std::cout << "\nLSD Sorted in " << instant.Get_useconds() << " useconds\n";
-	
+
 	if(argc == 3)
-	{	
+	{
 		outStream.open(outfile);
 		if(outStream.fail())
 		{
@@ -189,7 +189,7 @@ int main(int argc, char* argv[])
 //	std::cout << "QS3W Sorted:\n";
 //	for(size_t i = 0; i < qs3List.Size(); i++)
 //		std::cout << "   " << qs3[i] << "\n";
-	
+
 	c = 'z';
 	num = 0;
 	stringList.Clear();
