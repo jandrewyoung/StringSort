@@ -80,7 +80,7 @@ namespace fsu
 	void LSDSort::Sort(fsu::Vector<fsu::String>& stringList, size_t max, size_t length)
 	{
 		fsu::Vector<fsu::String> temp(length);
-		fsu::Vector<int> counts;
+		fsu::Vector<size_t> counts;
 		size_t i;
 
 		for(i = max - 1; i < max; --i)
