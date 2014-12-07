@@ -1,3 +1,17 @@
+/*
+    lsd.h
+    12/5/14
+    Joseph Young, Robert Vanhoose, Trever Richardson
+
+    ssspy.cpp
+	
+	String Sort Spy for LSD, MSD, and 3-Way Quicksort. Strings can be entered
+	manually and printed to the screen once sorted, or can be read in and written
+	to files using two arguments.
+
+    Copyright 2014
+*/
+
 #include <iostream>
 #include <xstring.h>
 #include <xstring.cpp>

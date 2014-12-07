@@ -1,5 +1,15 @@
+/*
+    lsd.h
+    12/5/14
+    Joseph Young, Robert Vanhoose, Trevor Richardson
 
+    fsu::LSDSort
+	
+	Performs an LSD Radix Sort on a vector of strings. Currently supported
+	alphabets are Extended ASCII, Uppercase, Lowercase, Decimal, and Binary.
 
+    Copyright 2014
+*/
 #ifndef _LSD_H
 #define _LSD_H
 
