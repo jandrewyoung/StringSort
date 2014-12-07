@@ -87,13 +87,13 @@ namespace fsu
 		{
 			counts.Clear();
 			counts.SetSize(R+1, 0);
-			for(size_t a= 0; a < length; a++)
-				counts[(size_t)stringList[a][i] - baseChar + 1]++;
-			for(size_t b =0; b < R; b++)
+			for(size_t a= 0; a < length; ++a)
+				++counts[(size_t)stringList[a][i] - baseChar + 1];
+			for(size_t b =0; b < R; ++b)
 				counts[b+1] += counts[b];
-			for(size_t c = 0; c < length; c++)
+			for(size_t c = 0; c < length; ++c)
 				temp[counts[(size_t)stringList[c][i] - baseChar]++] = stringList[c];
-			for(size_t d = 0; d < length; d++)
+			for(size_t d = 0; d < length; ++d)
 				stringList[d] = temp[d];
 		}
 	}
@@ -101,7 +101,7 @@ namespace fsu
 	void LSDSort::Pad(fsu::Vector<fsu::String>& stringList, size_t max)
 	{
 		fsu::String temp;
-		for(size_t i = 0; i < stringList.Size(); i++)
+		for(size_t i = 0; i < stringList.Size(); ++i)
 			if(stringList[i].Size() < max)
 			{
 				temp = stringList[i];
