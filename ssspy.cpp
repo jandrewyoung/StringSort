@@ -173,10 +173,10 @@ int main(int argc, char* argv[])
 
     //	msd.Sort(msdList, max, msdList.Size());
 
-    /*timer.SplitReset();
+    timer.SplitReset();
     lsd.Sort(lsdList, max, lsdList.Size());
     instant = timer.SplitTime();
-    std::cout << "\nLSD Sorted in " << instant.Get_useconds() << " useconds\n";*/
+    std::cout << "\nLSD Sorted in " << instant.Get_useconds() << " useconds\n";
 
     while (qs3List.Back() == NULL)
       qs3List.PopBack();
