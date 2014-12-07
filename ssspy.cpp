@@ -4,13 +4,13 @@
     Joseph Young, Robert Vanhoose, Trever Richardson
 
     ssspy.cpp
-	
-	String Sort Spy for LSD, MSD, and 3-Way Quicksort. Strings can be entered
-	manually and printed to the screen once sorted, or can be read in and written
-	to files using two arguments.
+
+    String Sort Spy for LSD, MSD, and 3-Way Quicksort. Strings can be entered
+    manually and printed to the screen once sorted, or can be read in and written
+    to files using two arguments.
 
     Copyright 2014
-*/
+    */
 
 #include <iostream>
 #include <xstring.h>
@@ -20,10 +20,10 @@
 #include <timer.cpp>
 #include <fstream>
 //#include <msd.h>
-//#include <qs3w.h>
+#include <qs3w.h>
 
 
- // EXTENDED_ASCII
+// EXTENDED_ASCII
 //typedef uint8_t Ascii;
 const size_t AlogR = 8;
 const size_t AR = 256;
@@ -54,163 +54,169 @@ int main(int argc, char* argv[])
   if (!(argc == 1 || argc == 3))  // program name is argv[0]
   {
     std::cout << " ** command line arguments:\n";
-	std::cout << "     1: input filename (required)\n";
-	std::cout << "     2: output filename (required)\n";
-	std::cout << "Or No arguments for manual entry\n";
-	std::cout << " ** try again\n";
+    std::cout << "     1: input filename (required)\n";
+    std::cout << "     2: output filename (required)\n";
+    std::cout << "Or No arguments for manual entry\n";
+    std::cout << " ** try again\n";
     return 0;
   }
 
 
-	char c = 'z';
-	char* infile = argv[1];
-	char* outfile = argv[2];
-	int num = 0;
-	size_t max = 0;
-	fsu::String in;
-	fsu::Vector<fsu::String> stringList;
-	fsu::LSDSort lsd;
-//	fsu::MSDSort msd;
-//	fsu::QS3Sort qs3;
-	fsu::Instant instant;
-	fsu::Timer timer;
-	std::ifstream inStream;
-	std::ofstream outStream;
+  char c = 'z';
+  char* infile = argv[1];
+  char* outfile = argv[2];
+  int num = 0;
+  size_t max = 0;
+  fsu::String in;
+  fsu::Vector<fsu::String> stringList;
+  fsu::LSDSort lsd;
+  //	fsu::MSDSort msd;
+  fsu::QS3Sort qs3;
+  fsu::Instant instant;
+  fsu::Timer timer;
+  std::ifstream inStream;
+  std::ofstream outStream;
 
-	while(1)
-	{
-	while(c != 'U' && c != 'u' && c != 'A' && c != 'a' && c != 'l' && c != 'l'
-			&& c != 'D' && c != 'd' && c != 'B' && c != 'b' && c != 'Q' && c != 'q')
-	{
-	if(num != 0)
-		std::cout << "Character not recognized\n";
-	std::cout << "Alphabet Choices:\n";
-	std::cout << "  ASCII (A)\n";
-	std::cout << "  Uppercase (U)\n";
-	std::cout << "  Lowercase (L)\n";
-	std::cout << "  Decimal (D)\n";
-	std::cout << "  Binary (B)\n";
-	std::cout << "  Quit (Q)\n";
-	std::cout << "Please enter your choice: ";
-	std::cin >> c;
-	num++;
-	}
-	num = 0;
+  while (1)
+  {
+    while (c != 'U' && c != 'u' && c != 'A' && c != 'a' && c != 'l' && c != 'l'
+      && c != 'D' && c != 'd' && c != 'B' && c != 'b' && c != 'Q' && c != 'q')
+    {
+      if (num != 0)
+        std::cout << "Character not recognized\n";
+      std::cout << "Alphabet Choices:\n";
+      std::cout << "  ASCII (A)\n";
+      std::cout << "  Uppercase (U)\n";
+      std::cout << "  Lowercase (L)\n";
+      std::cout << "  Decimal (D)\n";
+      std::cout << "  Binary (B)\n";
+      std::cout << "  Quit (Q)\n";
+      std::cout << "Please enter your choice: ";
+      std::cin >> c;
+      num++;
+    }
+    num = 0;
 
-	if(c == 'q' || c == 'Q')
-	{
-		std::cout << "Exiting...\n";
-		return 0;
-	}
+    if (c == 'q' || c == 'Q')
+    {
+      std::cout << "Exiting...\n";
+      return 0;
+    }
 
-	if(argc == 3)
-	{
-		inStream.open(infile);
-		if(inStream.fail())
-		{
-			std::cout << "File could not be opened for read\nExiting...";
-			return 0;
-		}
-		while(inStream)
-		{
-			in.GetLine(inStream);
-			stringList.PushBack(in);
-			if(in.Length() > max)
-				max = in.Length();
-		}
-	}
-	else
-	{
-		std::cout << "Please enter the number of strings to be sorted: ";
-		std::cin >> num;
-		for(int i = 1; i < num+1; i++)
-		{
-			std::cout << "Enter string " << i <<": ";
-			std::cin >> in;
-			stringList.PushBack(in);
-			if(in.Length() > max)
-				max = in.Length();
-		}
-	}
+    if (argc == 3)
+    {
+      inStream.open(infile);
+      if (inStream.fail())
+      {
+        std::cout << "File could not be opened for read\nExiting...";
+        return 0;
+      }
+      while (inStream)
+      {
+        in.GetLine(inStream);
+        stringList.PushBack(in);
+        if (in.Length() > max)
+          max = in.Length();
+      }
+    }
+    else
+    {
+      std::cout << "Please enter the number of strings to be sorted: ";
+      std::cin >> num;
+      for (int i = 1; i < num + 1; i++)
+      {
+        std::cout << "Enter string " << i << ": ";
+        std::cin >> in;
+        stringList.PushBack(in);
+        if (in.Length() > max)
+          max = in.Length();
+      }
+    }
 
-	switch(c)
-	{
-		case 'A':
-		case 'a':
-			lsd.Restart('A', 8, 256);
-//			msd.Restart('A', 8, 256);
-//			qs3.Restart('A', 8, 256);
-			break;
-		case 'U':
-		case 'u':
-			lsd.Restart('U', 5, 26);
-//			msd.Restart('U', 5, 26);
-//			qs3.Restart('U', 5, 26)	;
-			break;
-		case 'L':
-		case 'l':
-			lsd.Restart('L', 5, 26);
-//			msd.Restart('L', 5, 26);
-//			qs3.Restart('L', 5, 26);
-			break;
-		case 'D':
-		case 'd':
-			lsd.Restart('D', 4, 10);
-//			msd.Restart('D', 4, 10);
-//			qs3.Restart('D', 4, 10);
-			break;
-		case 'B':
-		case 'b':
-			lsd.Restart('B', 1, 2);
-//			msd.Restart('B', 1, 2);
-//			qs3.Restart('B', 1, 2);
-			break;
-	}
-	fsu::Vector<fsu::String> lsdList(stringList);
-	lsd.Pad(lsdList, max);
-//	fsu::Vector<fsu::String> msdList(stringList);
-//	fsu::Vector<fsu::String> qs3List(stringList);
+    switch (c)
+    {
+    case 'A':
+    case 'a':
+      lsd.Restart('A', 8, 256);
+      //			msd.Restart('A', 8, 256);
+      qs3.Restart('A', 8, 256);
+      break;
+    case 'U':
+    case 'u':
+      lsd.Restart('U', 5, 26);
+      //			msd.Restart('U', 5, 26);
+      qs3.Restart('U', 5, 26);
+      break;
+    case 'L':
+    case 'l':
+      lsd.Restart('L', 5, 26);
+      //			msd.Restart('L', 5, 26);
+      qs3.Restart('L', 5, 26);
+      break;
+    case 'D':
+    case 'd':
+      lsd.Restart('D', 4, 10);
+      //			msd.Restart('D', 4, 10);
+      //			qs3.Restart('D', 4, 10);
+      break;
+    case 'B':
+    case 'b':
+      lsd.Restart('B', 1, 2);
+      //			msd.Restart('B', 1, 2);
+      qs3.Restart('B', 1, 2);
+      break;
+    }
+    fsu::Vector<fsu::String> lsdList(stringList);
+    lsd.Pad(lsdList, max);
+    //	fsu::Vector<fsu::String> msdList(stringList);
+    fsu::Vector<fsu::String> qs3List(stringList);
 
-//	msd.Sort(msdList, max, msdList.Size());
-//	qs3.Sort(qs3List, max, qs3List.Size());
+    //	msd.Sort(msdList, max, msdList.Size());
 
-	timer.SplitReset();
-	lsd.Sort(lsdList, max, lsdList.Size());
-	instant = timer.SplitTime();
-	std::cout << "\nLSD Sorted in " << instant.Get_useconds() << " useconds\n";
+    /*timer.SplitReset();
+    lsd.Sort(lsdList, max, lsdList.Size());
+    instant = timer.SplitTime();
+    std::cout << "\nLSD Sorted in " << instant.Get_useconds() << " useconds\n";*/
 
-	if(argc == 3)
-	{
-		outStream.open(outfile);
-		if(outStream.fail())
-		{
-			std::cout << "File could not be opened for write\nExiting...";
-			return 0;
-		}
-		outStream <<"LSD Sorted in "<< instant.Get_useconds() << " useconds\n";
-		outStream <<"LSD Sorted list: \n";
-	}
-	for(size_t i = 0; i < lsdList.Size(); i++)
-	{
-		if(argc == 3)
-			outStream <<"   " << lsdList[i] << "\n";
-		else
-			std::cout << "   " << lsdList[i] << "\n";
-	}
-//	std::cout << "MSD Sorted:\n";
-//	for(size_t i = 0; i < msdList.Size(); i++)
-//		std::cout << "   " << msd[i] << "\n";
-//	std::cout << "QS3W Sorted:\n";
-//	for(size_t i = 0; i < qs3List.Size(); i++)
-//		std::cout << "   " << qs3[i] << "\n";
+    while (qs3List.Back() == NULL)
+      qs3List.PopBack();
+    timer.SplitReset();
+    qs3.Sort(qs3List, 0, qs3List.Size() - 1);
+    instant = timer.SplitTime();
+    std::cout << "\nQS3 Sorted in " << instant.Get_useconds() << " useconds\n";
 
-	c = 'z';
-	num = 0;
-	stringList.Clear();
-	if(argc == 3)
-	{
-		std::cout << "\nExiting...\n";
-		return 0;
-	}
-	}
+    if (argc == 3)
+    {
+      outStream.open(outfile);
+      if (outStream.fail())
+      {
+        std::cout << "File could not be opened for write\nExiting...";
+        return 0;
+      }
+      outStream << "LSD Sorted in " << instant.Get_useconds() << " useconds\n";
+      outStream << "LSD Sorted list: \n";
+    }
+    for (size_t i = 0; i < lsdList.Size(); i++)
+    {
+      if (argc == 3)
+        outStream << "   " << lsdList[i] << "\n";
+      else
+        std::cout << "   " << lsdList[i] << "\n";
+    }
+    //	std::cout << "MSD Sorted:\n";
+    //	for(size_t i = 0; i < msdList.Size(); i++)
+    //		std::cout << "   " << msd[i] << "\n";
+    //	std::cout << "QS3W Sorted:\n";
+    //	for(size_t i = 0; i < qs3List.Size(); i++)
+    //		std::cout << "   " << qs3[i] << "\n";
+
+    c = 'z';
+    num = 0;
+    stringList.Clear();
+    if (argc == 3)
+    {
+      std::cout << "\nExiting...\n";
+      return 0;
+    }
+  }
 }

@@ -45,14 +45,11 @@ namespace fsu
   {
     if (hi <= lo) return;
     int lt = lo, gt = hi;
-    std::cout << "lo = " << lo << " hi = " << hi << " d = " << d << "\n";
-    stringList.Dump(std::cout);
     int v = GetChar(stringList, lo, d);
     int i = lo + 1;
     while (i <= gt)
     {
       int t = GetChar(stringList, i, d);
-      std::cout << "t = " << t << " v = " << v << "\n";
       if (t < v) swap(stringList, lt++, i++);
       else if (t > v) swap(stringList, i, gt--);
       else i++;
@@ -64,7 +61,9 @@ namespace fsu
 
   void  QS3Sort::Restart(char aalph, size_t alogR, size_t aR)
   {
-
+    logR = alogR;
+    R = aR;
+    alph = aalph;
   }
 }
 
