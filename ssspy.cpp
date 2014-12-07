@@ -1,9 +1,10 @@
 #include <iostream>
 #include <xstring.h>
+#include <xstring.cpp>
 #include <vector.h>
 #include <lsd.h>
-#include <msd.h>
-#include <qs3w.h>
+//#include <msd.h>
+//#include <qs3w.h>
 
 
  // EXTENDED_ASCII
@@ -32,7 +33,7 @@ const size_t BlogR = 1;
 const size_t BR = 2;
 
 
-int main(int argc, char* argv[])
+int main()
 {
 	char c = 'z';
 	int num = 0;
@@ -40,8 +41,8 @@ int main(int argc, char* argv[])
 	fsu::String in;
 	fsu::Vector<fsu::String> stringList;
 	fsu::LSDSort lsd;
-	fsu::MSDSort msd;
-	fsu::QS3Sort qs3;
+//	fsu::MSDSort msd;
+//	fsu::QS3Sort qs3;
 	
 	
 	while(1)
@@ -49,90 +50,92 @@ int main(int argc, char* argv[])
 	while(c != 'U' && c != 'u' && c != 'A' && c != 'a' && c != 'l' && c != 'l'
 			&& c != 'D' && c != 'd' && c != 'B' && c != 'b' && c != 'Q' && c != 'q')
 	{
+	if(num != 0)
+		std::cout << "Character not recognized\n";
 	std::cout << "Alphabet Choices:\n";
 	std::cout << "  ASCII (A)\n";
 	std::cout << "  Uppercase (U)\n";
 	std::cout << "  Lowercase (L)\n";
 	std::cout << "  Decimal (D)\n";
 	std::cout << "  Binary (B)\n";
-	std::cout << "	Quit (Q)\n";
+	std::cout << "  Quit (Q)\n";
 	std::cout << "Please enter your choice: ";
 	std::cin >> c;
-	if(num != 0)
-		std::cout << "Character not recognized\n";
+	num++;
 	}
 	num = 0;
 	
-	while(num <= 0)
+	if(c == 'q' || c == 'Q')
 	{
-	std::cout << "Please enter the number of strings to be sorted: ";
-	std cin >> num;
+		std::cout << "Exiting...\n";
+		return 0;		
 	}
+	
+	std::cout << "Please enter the number of strings to be sorted: ";
+	std::cin >> num;
 	
 	for(int i = 1; i < num+1; i++){
 		std::cout << "Enter string " << i <<": ";
-		in.GetLine(std::cin);
+		std::cin >> in;
 		stringList.PushBack(in);
 		if(in.Length() > max)
 			max = in.Length();
 	}
-	for(size_t i = 0; i < stringList.Size(); i++)
-		stringList[i].SetSize(max, (char)0);
 		
 	switch(c)
 	{
 		case 'A':
 		case 'a':
 			lsd.Restart('A', 8, 256);
-			msd.Restart('A', 8, 256);
-			qs3.Restart('A', 8, 256);
+//			msd.Restart('A', 8, 256);
+//			qs3.Restart('A', 8, 256);
 			break;
 		case 'U':
 		case 'u':
 			lsd.Restart('U', 5, 26);
-			msd.Restart('U', 5, 26);
-			qs3.Restart('U', 5, 26)	;		
+//			msd.Restart('U', 5, 26);
+//			qs3.Restart('U', 5, 26)	;		
 			break;
 		case 'L':
 		case 'l':			
 			lsd.Restart('L', 5, 26);
-			msd.Restart('L', 5, 26);
-			qs3.Restart('L', 5, 26);
+//			msd.Restart('L', 5, 26);
+//			qs3.Restart('L', 5, 26);
 			break;
 		case 'D':
 		case 'd':			
 			lsd.Restart('D', 4, 10);
-			msd.Restart('D', 4, 10);
-			qs3.Restart('D', 4, 10);
+//			msd.Restart('D', 4, 10);
+//			qs3.Restart('D', 4, 10);
 			break;
 		case 'B':
 		case 'b':
 			lsd.Restart('B', 1, 2);
-			msd.Restart('B', 1, 2);
-			qs3.Restart('B', 1, 2);		
+//			msd.Restart('B', 1, 2);
+//			qs3.Restart('B', 1, 2);		
 			break;
-		case 'Q':
-		case 'q':
-			std::cout << "Exiting...\n";
-			return 0;
 	}
 	fsu::Vector<fsu::String> lsdList(stringList);
-	fsu::Vector<fsu::String> msdList(stringList);
-	fsu::Vector<fsu::String> qs3List(stringList);	
-	
+	lsd.Pad(lsdList, max);
+//	fsu::Vector<fsu::String> msdList(stringList);
+//	fsu::Vector<fsu::String> qs3List(stringList);	
+
 	lsd.Sort(lsdList, max, lsdList.Size());
-	msd.Sort(msdList, max, msdList.Size());
-	qs3.Sort(qs3List, max, qs3List.Size());
+//	msd.Sort(msdList, max, msdList.Size());
+//	qs3.Sort(qs3List, max, qs3List.Size());
 	
 	std::cout << "LSD Sorted:\n";
 	for(size_t i = 0; i < lsdList.Size(); i++)
-		std::cout << "   " << lsd[i] << "\n";
-	std::cout << "MSD Sorted:\n";
-	for(size_t i = 0; i < msdList.Size(); i++)
-		std::cout << "   " << msd[i] << "\n";
-	std::cout << "QS3W Sorted:\n";
-	for(size_t i = 0; i < qs3List.Size(); i++)
-		std::cout << "   " << qs3[i] << "\n";
+		std::cout << "   " << lsdList[i] << "\n";
+//	std::cout << "MSD Sorted:\n";
+//	for(size_t i = 0; i < msdList.Size(); i++)
+//		std::cout << "   " << msd[i] << "\n";
+//	std::cout << "QS3W Sorted:\n";
+//	for(size_t i = 0; i < qs3List.Size(); i++)
+//		std::cout << "   " << qs3[i] << "\n";
 	
+	c = 'z';
+	num = 0;
+	stringList.Clear();
 	}
 }
