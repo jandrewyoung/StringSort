@@ -23,20 +23,20 @@ const size_t INS_CUTOFF = 10;
 
 namespace fsu
 {
-	class MSDSort
-	{
-		public:
-					MSDSort () : logR(8), R(256), alph('A'){};	//Defaults to ASCII
-					MSDSort (char aalph, size_t alogR, size_t aR);
-			void	Restart (char aalph, size_t alogR, size_t aR);
-			void	Sort	  (fsu::Vector<fsu::String>& stringList, size_t max, size_t length);
-		private:
+   class MSDSort
+   {
+      public:
+               MSDSort  () : logR(8), R(256), alph('A'){};	//Defaults to ASCII
+               MSDSort  (char aalph, size_t alogR, size_t aR);
+         void  Restart  (char aalph, size_t alogR, size_t aR);
+         void  Sort     (fsu::Vector<fsu::String>& stringList, size_t max, size_t length);
+      private:
 
-			size_t logR;
-			size_t R;
-			size_t baseChar;
-			char alph;
-			void Sort ( fsu::Vector<fsu::String>& stringList,
+         size_t logR;
+         size_t R;
+         size_t baseChar;
+         char alph;
+         void Sort ( fsu::Vector<fsu::String>& stringList,
                      fsu::Vector<fsu::String>& tempList,
                      size_t start,
                      size_t finish,
@@ -46,7 +46,7 @@ namespace fsu
                               size_t start,
                               size_t finish
                             );
-	};
+   };
 
 
    /**
@@ -123,11 +123,11 @@ namespace fsu
       size_t letterOffset
    )
    {
-	   if ( finish - start >= INS_CUTOFF )
-	   {
-	      this->InsertionSort( stringList, start, finish );
-	      return;
-	   }
+      if ( finish - start >= INS_CUTOFF )
+      {
+         this->InsertionSort( stringList, start, finish );
+         return;
+      }
 
       // count how many times each letter occurs at this offset
       fsu::Vector<size_t> counts( R + 2, 0 );
