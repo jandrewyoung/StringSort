@@ -43,9 +43,9 @@ namespace fsu
                      size_t letterOffset
                    );
 			void InsertionSort ( fsu::Vector<fsu::String>& stringList,
-                           size_t start,
-                           size_t finish,
-                           size_t letterOffset );
+                              size_t start,
+                              size_t finish
+                            );
 	};
 
 
@@ -125,7 +125,7 @@ namespace fsu
    {
 	   if ( finish - start >= INS_CUTOFF )
 	   {
-	      this->InsertionSort( stringList);
+	      this->InsertionSort( stringList, start, finish );
 	      return;
 	   }
 
@@ -162,8 +162,7 @@ namespace fsu
 
    void MSDSort::InsertionSort ( fsu::Vector<fsu::String>& stringList,
                            size_t start,
-                           size_t finish,
-                           size_t letterOffset
+                           size_t finish
    )
    {
       for ( int i = start; i <= finish; ++i )
@@ -172,7 +171,7 @@ namespace fsu
             if ( stringList[ j ] < stringList[ j - 1 ] )
             {
                fsu::String tempString = stringList[ j - 1 ];
-               stringList[ j - 1 ] = stringList[j];
+               stringList[ j - 1 ] = stringList[ j ];
                stringList[ j ] = tempString;
             }
          }
