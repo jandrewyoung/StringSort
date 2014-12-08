@@ -1,14 +1,17 @@
 /*
-ssspy.cpp
-12/5/14
-Joseph Young, Robert Vanhoose, Trevor Richardson
+    lsd.h
+    12/5/14
+    Joseph Young, Robert Vanhoose, Trever Richardson
+	Author: Joseph Young
+	
+    ssspy.cpp
 
-String Sort Spy for LSD, MSD, and 3-Way Quicksort. Strings can be entered
-manually and printed to the screen once sorted, or can be read in and written
-to files using two arguments.
+    String Sort Spy for LSD, MSD, and 3-Way Quicksort. Strings can be entered
+    manually and printed to the screen once sorted, or can be read in and written
+    to files using two arguments.
 
-Copyright 2014
-*/
+    Copyright 2014
+    */
 
 #include <iostream>
 #include <xstring.h>
@@ -17,7 +20,7 @@ Copyright 2014
 #include <lsd.h>
 #include <timer.cpp>
 #include <fstream>
-//#include <msd.h>
+#include <msd.h>
 #include <qs3w.h>
 
 
@@ -46,6 +49,7 @@ const size_t DR = 10;
 const size_t BlogR = 1;
 const size_t BR = 2;
 
+bool StringCheck(fsu::Vector<fsu::String>& strings, char alpha);
 
 int main(int argc, char* argv[])
 {
@@ -68,9 +72,9 @@ int main(int argc, char* argv[])
   fsu::String in;
   fsu::Vector<fsu::String> stringList;
   fsu::LSDSort lsd;
-  //	fsu::MSDSort msd;
+  fsu::MSDSort msd;
   fsu::QS3Sort qs3;
-  fsu::Instant instant;
+  fsu::Instant instant1, instant2, instant3;
   fsu::Timer timer;
   std::ifstream inStream;
   std::ofstream outStream;
@@ -136,53 +140,48 @@ int main(int argc, char* argv[])
     case 'A':
     case 'a':
       lsd.Restart('A', 8, 256);
-      //			msd.Restart('A', 8, 256);
+      msd.Restart('A', 8, 256);
       qs3.Restart('A', 8, 256);
       break;
     case 'U':
     case 'u':
       lsd.Restart('U', 5, 26);
-      //			msd.Restart('U', 5, 26);
+      msd.Restart('U', 5, 26);
       qs3.Restart('U', 5, 26);
       break;
     case 'L':
     case 'l':
       lsd.Restart('L', 5, 26);
-      //			msd.Restart('L', 5, 26);
+      msd.Restart('L', 5, 26);
       qs3.Restart('L', 5, 26);
       break;
     case 'D':
     case 'd':
       lsd.Restart('D', 4, 10);
-      //			msd.Restart('D', 4, 10);
-      //			qs3.Restart('D', 4, 10);
+      msd.Restart('D', 4, 10);
+      qs3.Restart('D', 4, 10);
       break;
     case 'B':
     case 'b':
       lsd.Restart('B', 1, 2);
-      //			msd.Restart('B', 1, 2);
+      msd.Restart('B', 1, 2);
       qs3.Restart('B', 1, 2);
       break;
     }
+	
+	if(!StringCheck(stringList, c))
+		return 0;
     fsu::Vector<fsu::String> lsdList(stringList);
     lsd.Pad(lsdList, max);
-    //	fsu::Vector<fsu::String> msdList(stringList);
+    fsu::Vector<fsu::String> msdList(stringList);
     fsu::Vector<fsu::String> qs3List(stringList);
-
-    //	msd.Sort(msdList, max, msdList.Size());
 
     timer.SplitReset();
     lsd.Sort(lsdList, max, lsdList.Size());
-    instant = timer.SplitTime();
-    std::cout << "\nLSD Sorted in " << instant.Get_useconds() << " useconds\n";
+    instant1 = timer.SplitTime();
+    std::cout << "\nLSD Sorted in " << instant1.Get_useconds() << " useconds\n";
 
-    while (qs3List.Back() == NULL)
-      qs3List.PopBack();
-    timer.SplitReset();
-    qs3.Sort(qs3List, 0, qs3List.Size() - 1);
-    instant = timer.SplitTime();
-    std::cout << "\nQS3 Sorted in " << instant.Get_useconds() << " useconds\n";
-
+	//printing LSD List
     if (argc == 3)
     {
       outStream.open(outfile);
@@ -191,7 +190,7 @@ int main(int argc, char* argv[])
         std::cout << "File could not be opened for write\nExiting...";
         return 0;
       }
-      outStream << "LSD Sorted in " << instant.Get_useconds() << " useconds\n";
+      outStream << "LSD Sorted in " << instant1.Get_useconds() << " useconds\n";
       outStream << "LSD Sorted list: \n";
     }
     for (size_t i = 0; i < lsdList.Size(); i++)
@@ -201,10 +200,20 @@ int main(int argc, char* argv[])
       else
         std::cout << "   " << lsdList[i] << "\n";
     }
-    //	std::cout << "MSD Sorted:\n";
-    //	for(size_t i = 0; i < msdList.Size(); i++)
-    //		std::cout << "   " << msd[i] << "\n";
-    outStream << "QS3W Sorted:\n";
+	
+    while (qs3List.Back() == NULL)
+      qs3List.PopBack();
+    timer.SplitReset();
+    qs3.Sort(qs3List, 0, qs3List.Size() - 1);
+    instant2 = timer.SplitTime();
+    std::cout << "\nQS3 Sorted in " << instant2.Get_useconds() << " useconds\n";
+
+	//printing QS3 List
+	if (argc == 3)
+    {
+      outStream << "\nQS3 Sorted in " << instant2.Get_useconds() << " useconds\n";
+      outStream << "QS3 Sorted list: \n";
+    }
     for (size_t i = 0; i < qs3List.Size(); i++)
     {
       if (argc == 3)
@@ -212,14 +221,90 @@ int main(int argc, char* argv[])
       else
         std::cout << "   " << qs3List[i] << "\n";
     }
+	
+	
+    timer.SplitReset();
+    msd.Sort(msdList);
+    instant3 = timer.SplitTime();
+    std::cout << "\nMSD Sorted in " << instant3.Get_useconds() << " useconds\n";
+
+	//printing MSD List
+	if (argc == 3)
+    {
+      outStream << "\nMSD Sorted in " << instant3.Get_useconds() << " useconds\n";
+      outStream << "MSD Sorted list: \n";
+    }
+    for (size_t i = 0; i < msdList.Size(); i++)
+    {
+      if (argc == 3)
+        outStream << "   " << msdList[i] << "\n";
+      else
+        std::cout << "   " << msdList[i] << "\n";
+    }
 
     c = 'z';
     num = 0;
+	max = 0;
     stringList.Clear();
     if (argc == 3)
     {
       std::cout << "\nExiting...\n";
       return 0;
     }
+	std::cout << "\n";
   }
+}
+
+bool StringCheck(fsu::Vector<fsu::String>& stringList, char c)
+{
+	size_t a, i;
+	
+	switch (c)
+    {
+    case 'U':
+    case 'u':
+		for(i = 0; i < stringList.Size(); ++i)
+			for(a = 0; a < stringList[i].Size(); ++a)
+				if((int)stringList[i][a] < 65 || (int)stringList[i][a] > 90)
+				{
+					std::cout << "\nError: String " << stringList[i] << " is not in Uppercase\n";
+					std::cout << "Exiting...\n";
+					return false;
+				}
+      break;
+    case 'L':
+    case 'l':
+		for(i = 0; i < stringList.Size(); ++i)
+			for(a = 0; a < stringList[i].Size(); ++a)
+				if((int)stringList[i][a] < 97 || (int)stringList[i][a] > 122)
+				{
+					std::cout << "\nError: String " << stringList[i] << " is not in Lowercase\n";
+					std::cout << "Exiting...\n";
+					return false;
+				}
+      break;
+    case 'D':
+    case 'd':
+		for(i = 0; i < stringList.Size(); ++i)
+			for(a = 0; a < stringList[i].Size(); ++a)
+				if((int)stringList[i][a] < 48 || (int)stringList[i][a] > 57)
+				{
+					std::cout << "\nError: String " << stringList[i] << " is not in Decimal\n";
+					std::cout << "Exiting...\n";
+					return false;
+				}
+      break;
+    case 'B':
+    case 'b':
+		for(i = 0; i < stringList.Size(); ++i)
+			for(a = 0; a < stringList[i].Size(); ++a)
+				if((int)stringList[i][a] < 48 || (int)stringList[i][a] > 49)
+				{
+					std::cout << "\nError: String " << stringList[i] << " is not in Binary\n";
+					std::cout << "Exiting...\n";
+					return false;
+				}
+      break;
+    }
+	return true;
 }
