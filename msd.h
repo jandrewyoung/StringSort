@@ -30,7 +30,7 @@ namespace fsu
                MSDSort  () : logR(8), R(256), alph('A'){};	//Defaults to ASCII
                MSDSort  (char aalph, size_t alogR, size_t aR);
          void  Restart  (char aalph, size_t alogR, size_t aR);
-         void  Sort     (fsu::Vector<fsu::String>& stringList, size_t max, size_t length);
+         void  Sort     (fsu::Vector<fsu::String>& stringList, size_t length);
       private:
 
          size_t logR;
@@ -106,7 +106,7 @@ namespace fsu
     * Sort()
     * Conducts a most significant digit first string sort
     */
-   void MSDSort::Sort (fsu::Vector<fsu::String>& stringList, size_t max, size_t length)
+   void MSDSort::Sort (fsu::Vector<fsu::String>& stringList, size_t length)
    {
 
       fsu::Vector<fsu::String> tempList( length );
@@ -172,8 +172,8 @@ namespace fsu
                            size_t finish
    )
    {
-      for ( int i = start; i <= finish; ++i )
-         for ( int j = i; j > start; --j )
+      for ( size_t i = start; i <= finish; ++i )
+         for ( size_t j = i; j > start; --j )
          {
             if ( stringList[ j ] < stringList[ j - 1 ] )
             {

@@ -166,7 +166,7 @@ int main(int argc, char* argv[])
       qs3.Restart('B', 1, 2);
       break;
     }
-	
+
 	if(!StringCheck(stringList, c))
 		return 0;
     fsu::Vector<fsu::String> lsdList(stringList);
@@ -198,7 +198,7 @@ int main(int argc, char* argv[])
       else
         std::cout << "   " << lsdList[i] << "\n";
     }
-	
+
     while (qs3List.Back() == NULL)
       qs3List.PopBack();
     timer.SplitReset();
@@ -219,10 +219,10 @@ int main(int argc, char* argv[])
       else
         std::cout << "   " << qs3List[i] << "\n";
     }
-	
-	
+
+
     timer.SplitReset();
-    msd.Sort(msdList);
+    msd.Sort(msdList, msdList.Size());
     instant3 = timer.SplitTime();
     std::cout << "\nMSD Sorted in " << instant3.Get_useconds() << " useconds\n";
 
@@ -256,7 +256,7 @@ int main(int argc, char* argv[])
 bool StringCheck(fsu::Vector<fsu::String>& stringList, char c)
 {
 	size_t a, i;
-	
+
 	switch (c)
     {
     case 'U':
