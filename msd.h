@@ -126,12 +126,12 @@ namespace fsu
    {
       if ( finish - start <= 10 )
       {
-         std::cout << "running insertion sort" << std::endl;
+         //std::cout << "running insertion sort" << std::endl;
          this->InsertionSort( stringList, start, finish );
          return;
       }
-      std::cout << "start: " << start << " finish: " << finish << std::endl;
-      exit(0);
+//       std::cout << "start: " << start << " finish: " << finish << std::endl;
+//       exit(0);
 
       // count how many times each letter occurs at this offset
       fsu::Vector<size_t> counts( R + 2, 0 );
