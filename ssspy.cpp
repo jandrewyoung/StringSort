@@ -1,10 +1,8 @@
 /*
-    lsd.h
-    12/5/14
-    Joseph Young, Robert Vanhoose, Trever Richardson
-	Author: Joseph Young
-	
     ssspy.cpp
+    12/5/14
+    Joseph Young, Robert Vanhoose, Trevor Richardson
+	Author: Joseph Young
 
     String Sort Spy for LSD, MSD, and 3-Way Quicksort. Strings can be entered
     manually and printed to the screen once sorted, or can be read in and written
