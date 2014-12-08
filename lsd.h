@@ -1,4 +1,16 @@
-
+/**
+ * lsd.h - Class LSDSort
+ *
+ * Written by Andrew Young, w/ revisions by Rob van Hoose
+ *
+ * Project 6
+ * COP 4531 - Fall 2014
+ * Team 11:
+ *   Andrew Young jay10@my.fsu.edu
+ *   Rob van Hoose hrv04@my.fsu.edu
+ *   Trevor Richardson
+ *
+ */
 
 #ifndef _LSD_H
 #define _LSD_H
