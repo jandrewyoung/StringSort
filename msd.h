@@ -124,19 +124,19 @@ namespace fsu
       size_t letterOffset
    )
    {
-      if ( finish - start <= 10 )
-      {
-         //std::cout << "running insertion sort" << std::endl;
-         this->InsertionSort( stringList, start, finish );
-         return;
-      }
+//       if ( finish - start <= 10 )
+//       {
+//          //std::cout << "running insertion sort" << std::endl;
+//          this->InsertionSort( stringList, start, finish );
+//          return;
+//       }
 //       std::cout << "start: " << start << " finish: " << finish << std::endl;
 //       exit(0);
 
       // count how many times each letter occurs at this offset
       fsu::Vector<size_t> counts( R + 2, 0 );
       for ( size_t i = start; i <= finish; ++i )
-         ++counts[ (size_t)stringList[ i ][ letterOffset ] ];
+         ++counts[ (size_t)stringList[ i ][ letterOffset ] - baseChar ];
 
       // Transform counts to indices
       for( size_t r = 0; r < R + 1; ++r )
