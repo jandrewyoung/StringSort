@@ -42,7 +42,7 @@ namespace fsu
                      size_t finish,
                      size_t letterOffset
                    );
-			void InsertionSort ( fsu::Vector<fsu::String>& stringList,
+         void InsertionSort ( fsu::Vector<fsu::String>& stringList,
                               size_t start,
                               size_t finish
                             );
