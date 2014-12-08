@@ -40,5 +40,4 @@ ssspy.x input.file output.file. If this is done, the user will still have to giv
 that is being used, and the file should have one string per line.
 A stringCheck method was added to check that the strings were in the specified alphabet and return
 an error if not.
-Note: there must not be a blank line at the end of the input file!
 

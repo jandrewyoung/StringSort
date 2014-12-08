@@ -114,12 +114,15 @@ int main(int argc, char* argv[])
       while (inStream)
       {
         in.GetLine(inStream);
-		while((int)in[in.Size()-1] == 13)
-			in.SetSize(in.Size()-1, (char)0);
-        stringList.PushBack(in);
-        if (in.Length() > max)
-          max = in.Length();
-      }
+		if(in != NULL)
+		{
+			while((int)in[in.Size()-1] == 13)
+				in.SetSize(in.Size()-1, (char)0);
+			stringList.PushBack(in);
+			if (in.Length() > max)
+			max = in.Length();
+		}
+	  }
     }
     else
     {
