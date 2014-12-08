@@ -19,6 +19,9 @@ namespace fsu
 		public:
       QS3Sort() : logR(8), R(256), alph('A')	{} //Defaults to ASCII
 			QS3Sort	(char aalph, size_t alogR, size_t aR) : logR(alogR), R(aR), alph(aalph) {}
+
+      int GetChar(fsu::Vector<fsu::String>& stringList, size_t i, size_t d);
+      void Swap(fsu::Vector<fsu::String>& stringList, size_t x, size_t y);
       void	Restart(char aalph, size_t alogR, size_t aR);
       void	Sort(fsu::Vector<fsu::String>& stringList, int lo, int hi, size_t d = 0);
 		private:
@@ -27,18 +30,18 @@ namespace fsu
 			char alph;
 	};
 
-  void swap(fsu::Vector<fsu::String>& stringList, size_t x, size_t y)
-  {
-    fsu::String temp = stringList[x];
-    stringList[x] = stringList[y];
-    stringList[y] = temp;
-  }
-
-  int GetChar(fsu::Vector<fsu::String>& stringList, size_t i, size_t d)
+  int QS3Sort::GetChar(fsu::Vector<fsu::String>& stringList, size_t i, size_t d)
   {
     if (d == stringList[i].Size())
       return -1;
     return (size_t)stringList[i][d];
+  }
+
+  void QS3Sort::Swap(fsu::Vector<fsu::String>& stringList, size_t x, size_t y)
+  {
+    fsu::String temp = stringList[x];
+    stringList[x] = stringList[y];
+    stringList[y] = temp;
   }
 
   void QS3Sort::Sort(fsu::Vector<fsu::String>& stringList, int lo, int hi, size_t d)
@@ -50,8 +53,8 @@ namespace fsu
     while (i <= gt)
     {
       int t = GetChar(stringList, i, d);
-      if (t < v) swap(stringList, lt++, i++);
-      else if (t > v) swap(stringList, i, gt--);
+      if (t < v) Swap(stringList, lt++, i++);
+      else if (t > v) Swap(stringList, i, gt--);
       else i++;
     }
     Sort(stringList, lo, lt - 1, d);
