@@ -4,6 +4,7 @@
  * Implements most-significant-digit-first string sort. Influenced by Robert
  * Sedgewick's design. See readme.txt for more.
  *
+ * Written by Rob van Hoose
  * Project 6
  * COP 4531 - Fall 2014
  * Team 11:
@@ -124,23 +125,25 @@ namespace fsu
       size_t letterOffset
    )
    {
-//       if ( finish - start <= 10 )
-//       {
-//          //std::cout << "running insertion sort" << std::endl;
-//          this->InsertionSort( stringList, start, finish );
-//          return;
-//       }
-//       std::cout << "start: " << start << " finish: " << finish << std::endl;
-//       exit(0);
+      if((int)finish <= (int)start)
+         return;
+
+      if ( finish - start <= INS_CUTOFF )
+      {
+         // we have a small bit of work left, Insertion sort is more efficient now.
+         this->InsertionSort( stringList, start, finish );
+         return;
+      }
+
 
       // count how many times each letter occurs at this offset
       fsu::Vector<size_t> counts( R + 2, 0 );
       for ( size_t i = start; i <= finish; ++i )
-         ++counts[ (size_t)stringList[ i ][ letterOffset ] - baseChar ];
+         ++counts[ (size_t)stringList[ i ][ letterOffset ] - baseChar + 2 ];
 
       // Transform counts to indices
       for( size_t r = 0; r < R + 1; ++r )
-			counts[ r + 1 ] += counts[r];
+			counts[ r + 1 ] += counts[ r ];
 
       // distribute
       for( size_t i = start; i <= finish; ++i )
