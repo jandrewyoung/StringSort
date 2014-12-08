@@ -19,6 +19,8 @@
 #include <xstring.h>
 #include <vector.h>
 
+const size_t INS_CUTOFF = 10;
+
 namespace fsu
 {
 	class MSDSort
@@ -29,13 +31,18 @@ namespace fsu
 			void	Restart (char aalph, size_t alogR, size_t aR);
 			void	Sort	  (fsu::Vector<fsu::String>& stringList, size_t max, size_t length);
 		private:
-		   const size_t INS_CUTOFF = 10;
+
 			size_t logR;
 			size_t R;
 			size_t baseChar;
 			char alph;
-			void MSDSort::Sort ( fsu::Vector<fsu::String>& stringList, fsu::Vector<fsu::String>& tempList )
-			void MSDSort::InsertionSort ( size_t[]& subArray );
+			void Sort ( fsu::Vector<fsu::String>& stringList,
+                     fsu::Vector<fsu::String>& tempList,
+                     size_t start,
+                     size_t finish,
+                     size_t letterOffset
+                   );
+		//	void InsertionSort (  subArray );
 	};
 
 
@@ -43,27 +50,27 @@ namespace fsu
     * MSDSort constructor
     * sets baseChar (offset) depending on the alphabet chosen
     */
-	MSDSort::MSDSort(char aalph, size_t alogR, size_t aR) : logR(alogR), R(aR), alph(aalph)
-	{
-		switch(alph)
-		{
-			case 'A':
-				baseChar = 0;
-				break;
-			case 'L':
-				baseChar = (size_t)'a';
-				break;
-			case 'U':
-				baseChar = (size_t)'A';
-				break;
-			case 'D':
-				baseChar = (size_t)'0';
-				break;
-			case 'B':
-				baseChar = (size_t)'0';
-				break;
-		}
-	}
+   MSDSort::MSDSort(char aalph, size_t alogR, size_t aR) : logR(alogR), R(aR), alph(aalph)
+   {
+      switch(alph)
+      {
+         case 'A':
+            baseChar = 0;
+            break;
+         case 'L':
+            baseChar = (size_t)'a';
+            break;
+         case 'U':
+            baseChar = (size_t)'A';
+            break;
+         case 'D':
+            baseChar = (size_t)'0';
+            break;
+         case 'B':
+            baseChar = (size_t)'0';
+            break;
+      }
+   }
 
    void MSDSort::Restart (char aalph, size_t alogR, size_t aR)
    {
@@ -95,32 +102,32 @@ namespace fsu
     * Sort()
     * Conducts a most significant digit first string sort
     */
-	void MSDSort::Sort (fsu::Vector<fsu::String>& stringList, size_t max, size_t length)
-	{
+   void MSDSort::Sort (fsu::Vector<fsu::String>& stringList, size_t max, size_t length)
+   {
 
-		fsu::Vector<fsu::String> tempList(length);
-		// start the sort, on all elements of stringList, starting at the first letter
-      this->Sort ( stringList, tempList, 0, length - 1, 0 );
+      fsu::Vector<fsu::String> tempList(length);
+      // start the sort, on all elements of stringList, starting at the first letter
+      Sort( stringList, tempList, 0, length - 1, 0 );
 
 
-	} // end Sort()
+   } // end Sort()
 
-	void MSDSort::Sort (
-	   fsu::Vector<fsu::String>& stringList,
-	   fsu::Vector<fsu::String>& tempList,
-	   size_t start,
-	   size_t finish,
-	   size_t letterOffset
+   void MSDSort::Sort (
+      fsu::Vector<fsu::String>& stringList,
+      fsu::Vector<fsu::String>& tempList,
+      size_t start,
+      size_t finish,
+      size_t letterOffset
    )
-	{
+   {
 	   if ( finish - start >= INS_CUTOFF )
 	   {
-	      this->InsertionSort();
+	  //    this->InsertionSort();
 	      return;
 	   }
 
       // count how many times each letter occurs at this offset
-	   fsu::Vector<size_t> counts( R + 2, 0 );
+      fsu::Vector<size_t> counts( R + 2, 0 );
       for ( size_t i = start; i <= finish; ++i )
          ++counts[ (size_t)stringList[ i ][ letterOffset ] ];
 
@@ -130,23 +137,23 @@ namespace fsu
 
       // distribute
       for( size_t i = start; i <= finish; ++i )
-			tempList[ counts[ (size_t)stringList[ i ][ letterOffset ] - baseChar + 1 ]++ ]
-			   = stringList[ i ];
+         tempList[ counts[ (size_t)stringList[ i ][ letterOffset ] - baseChar + 1 ]++ ]
+            = stringList[ i ];
 
 		// copy back
-		for( size_t i = start; i <= finish; ++i )
-			stringList[ i ] = tempList[ i - start ];
+      for( size_t i = start; i <= finish; ++i )
+         stringList[ i ] = tempList[ i - start ];
 
 		// Recursion...
-		for( size_t r = 0; r < R; ++r )
-			this->Sort( stringList,
-			      tempList,
-			      start + counts[ r ],
-			      low + counts[ r + 1 ] - 1,
-			      letterOffset+1
-			);
+      for( size_t r = 0; r < R; ++r )
+         this->Sort( stringList,
+               tempList,
+               start + counts[ r ],
+               start + counts[ r + 1 ] - 1,
+               letterOffset+1
+      );
 
-	} // end Sort( originalList, tempList )
+   } // end Sort( originalList, tempList )
 
 
 
