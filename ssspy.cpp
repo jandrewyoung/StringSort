@@ -114,6 +114,8 @@ int main(int argc, char* argv[])
       while (inStream)
       {
         in.GetLine(inStream);
+		while((int)in[in.Size()-1] == 13)
+			in.SetSize(in.Size()-1, (char)0);
         stringList.PushBack(in);
         if (in.Length() > max)
           max = in.Length();
@@ -298,7 +300,7 @@ bool StringCheck(fsu::Vector<fsu::String>& stringList, char c)
 			for(a = 0; a < stringList[i].Size(); ++a)
 				if((int)stringList[i][a] < 48 || (int)stringList[i][a] > 49)
 				{
-					std::cout << "\nError: String " << stringList[i] << " is not in Binary\n";
+					std::cout << "\nError: String " <<stringList[i]<< " is not in Binary\n";
 					std::cout << "Exiting...\n";
 					return false;
 				}

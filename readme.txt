@@ -9,7 +9,9 @@ qs3w.h - Trevor Richardson
 
 LSD Development Notes:
 I implemented the Pad function to allow strings of different sizes to be sorted by padding
-the left side of the string with the smallest character in the alphabet being used.
+the left side of the string with the smallest character in the alphabet being used. Basechar
+is used to keep the index of the character corresponding to 0 through R-1 as opposed to its
+actual ASCII value.
 
 MSD development notes:
 As soon as I read about MSD and the way it creates bucket lists, I thought there must ways
@@ -36,4 +38,7 @@ the sorted strings and the time it took to sort them to the command line.
 Strings can also be read from a file and output to a file by running with two arguments, i.e.
 ssspy.x input.file output.file. If this is done, the user will still have to give the alphabet
 that is being used, and the file should have one string per line.
+A stringCheck method was added to check that the strings were in the specified alphabet and return
+an error if not.
+Note: there must not be a blank line at the end of the input file!
 

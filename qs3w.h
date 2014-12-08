@@ -1,5 +1,6 @@
 /*
   qs3w.h
+  Joseph Young, Robert Vanhoose, Trevor Richardson
   Author: Trevor Richardson
 
   Sorts string vectors using 3-way quicksort algorithm
