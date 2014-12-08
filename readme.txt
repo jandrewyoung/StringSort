@@ -4,7 +4,7 @@ Team: Joseph Young, Robert Vanhoose, Trevor Richardson
 Files:
 ssspy.cpp - Joseph Young
 lsd.h - Joseph Young
-msd.h - Robert Vanhoose
+msd.h - Joseph Young
 qs3w.h - Trevor Richardson
 
 LSD Development Notes:
@@ -12,10 +12,8 @@ I implemented the Pad function to allow strings of different sizes to be sorted 
 the left side of the string with the smallest character in the alphabet being used.
 
 MSD development notes:
-As soon as I read about MSD and the way it creates bucket lists, I thought there must ways
-to optimize it. I would have preferred to factor out the regression but that did not seem
-practical in this case. Instead, I focused on applying Robert Sedgewick's optimization
-to recurse over the same vector.
+Based highly on the LSD sort but with recursion added.
+NOTE: Robert was supposed to do this but it was done by Joseph due to time contraints. Duplicate strings cause an error at this time.
 
 QS3 Development Notes:
 I borrowed my optimized 3-way quicksort from one of the previous projects and re-factored
