@@ -42,7 +42,10 @@ namespace fsu
                      size_t finish,
                      size_t letterOffset
                    );
-		//	void InsertionSort (  subArray );
+			void InsertionSort ( fsu::Vector<fsu::String>& stringList,
+                           size_t start,
+                           size_t finish,
+                           size_t letterOffset );
 	};
 
 
@@ -155,7 +158,15 @@ namespace fsu
 
    } // end Sort( originalList, tempList )
 
+   void MSDSort::InsertionSort ( fsu::Vector<fsu::String>& stringList,
+                           size_t start,
+                           size_t finish,
+                           size_t letterOffset
+   )
+   {
 
+
+   }
 
 } // end namespace fsu
 
