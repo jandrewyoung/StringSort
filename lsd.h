@@ -2,7 +2,8 @@
     lsd.h
     12/5/14
     Joseph Young, Robert Vanhoose, Trevor Richardson
-
+	Author: Joseph Young
+	
     fsu::LSDSort
 	
 	Performs an LSD Radix Sort on a vector of strings. Currently supported
