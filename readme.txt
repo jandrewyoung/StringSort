@@ -18,14 +18,15 @@ practical in this case. Instead, I focused on applying Robert Sedgewick's optimi
 to recurse over the same vector.
 
 QS3 Development Notes:
-I borrowed my optimized 3-way quicksort from one of the previous projects and re-factored it 
-to work with string vectors. Since it functions using a simple comparison that converts characters
-from ASCII to integers, very little tweaking had to be done to account for different alphabets. A
-GetChar() method was added to avoid boundary issues resulting from reaching the end of the vector
-or trying to read a character from a string past its length, alongside a simple swap method for
-swapping string vector elements. One issue that put a spoke in the wheels was that the string vector
-from sortspy had an end iterator past the actual end. This was dealt with by popping all null elements
-off the end of vector before sorting it.
+I borrowed my optimized 3-way quicksort from one of the previous projects and re-factored
+it to work with string vectors. Since it functions using a simple comparison that 
+converts characters from ASCII to integers, very little tweaking had to be done to 
+account for different alphabets. A GetChar() method was added to avoid boundary issues
+resulting from reaching the end of the vector or trying to read a character from a string
+past its length, alongside a simple swap method for swapping string vector elements. One
+issue that put a spoke in the wheels was that the string vector from sortspy had an end
+iterator past the actual end. This was dealt with by popping all null elements off the 
+end of vector before sorting it.
 
 SSSPY Use:
 Strings can be entered manually through the menu by running the program with no arguments. The
