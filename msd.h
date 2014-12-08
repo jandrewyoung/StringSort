@@ -108,7 +108,8 @@ namespace fsu
    void MSDSort::Sort (fsu::Vector<fsu::String>& stringList, size_t max, size_t length)
    {
 
-      fsu::Vector<fsu::String> tempList(length);
+      fsu::Vector<fsu::String> tempList( length );
+
       // start the sort, on all elements of stringList, starting at the first letter
       Sort( stringList, tempList, 0, length - 1, 0 );
 
@@ -123,11 +124,14 @@ namespace fsu
       size_t letterOffset
    )
    {
-      if ( finish - start >= INS_CUTOFF )
+      if ( finish - start <= 10 )
       {
+         std::cout << "running insertion sort" << std::endl;
          this->InsertionSort( stringList, start, finish );
          return;
       }
+      std::cout << "start: " << start << " finish: " << finish << std::endl;
+      exit(0);
 
       // count how many times each letter occurs at this offset
       fsu::Vector<size_t> counts( R + 2, 0 );
@@ -143,11 +147,11 @@ namespace fsu
          tempList[ counts[ (size_t)stringList[ i ][ letterOffset ] - baseChar + 1 ]++ ]
             = stringList[ i ];
 
-		// copy back
+      // copy back
       for( size_t i = start; i <= finish; ++i )
          stringList[ i ] = tempList[ i - start ];
 
-		// Recursion...
+      // Recursion...
       for( size_t r = 0; r < R; ++r )
          this->Sort( stringList,
                tempList,
