@@ -1,16 +1,16 @@
 /*
-    lsd.h
-    12/5/14
-    Joseph Young, Robert Vanhoose, Trever Richardson
+lsd.h
+12/5/14
+Joseph Young, Robert Vanhoose, Trever Richardson
 
-    ssspy.cpp
+ssspy.cpp
 
-    String Sort Spy for LSD, MSD, and 3-Way Quicksort. Strings can be entered
-    manually and printed to the screen once sorted, or can be read in and written
-    to files using two arguments.
+String Sort Spy for LSD, MSD, and 3-Way Quicksort. Strings can be entered
+manually and printed to the screen once sorted, or can be read in and written
+to files using two arguments.
 
-    Copyright 2014
-    */
+Copyright 2014
+*/
 
 #include <iostream>
 #include <xstring.h>
@@ -206,9 +206,14 @@ int main(int argc, char* argv[])
     //	std::cout << "MSD Sorted:\n";
     //	for(size_t i = 0; i < msdList.Size(); i++)
     //		std::cout << "   " << msd[i] << "\n";
-    //	std::cout << "QS3W Sorted:\n";
-    //	for(size_t i = 0; i < qs3List.Size(); i++)
-    //		std::cout << "   " << qs3[i] << "\n";
+    outStream << "QS3W Sorted:\n";
+    for (size_t i = 0; i < qs3List.Size(); i++)
+    {
+      if (argc == 3)
+        outStream << "   " << qs3List[i] << "\n";
+      else
+        std::cout << "   " << qs3List[i] << "\n";
+    }
 
     c = 'z';
     num = 0;
